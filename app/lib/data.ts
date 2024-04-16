@@ -162,6 +162,10 @@ export async function fetchInvoiceById(id: string) {
       FROM invoices
       WHERE invoices.id = ${id};
     `;
+    if (!data.rows.length) {
+      console.error(`No invoice found with id: ${id}`);
+      throw new Error('Invoice not found.');
+    }
 
     const invoice = data.rows.map((invoice) => ({
       ...invoice,
